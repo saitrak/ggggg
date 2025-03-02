@@ -118,9 +118,9 @@
   </div>
 
   <script>
-    const OPENROUTER_API_KEY = "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";
-    const SITE_URL = "<YOUR_SITE_URL>";
-    const SITE_NAME = "<YOUR_SITE_NAME>";
+    const OPENROUTER_API_KEY = "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";
+    const SITE_URL = "https://saitrak.github.io/ggggg/"; // Your GitHub Pages URL
+    const SITE_NAME = "GitHub Chatbot"; // A generic name for your site
 
     function addMessage(role, content) {
       const chatMessages = document.getElementById("chatMessages");
@@ -169,7 +169,8 @@
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          const errorDetails = await response.json(); // Get detailed error info
+          throw new Error(`HTTP error! Status: ${response.status}, Details: ${JSON.stringify(errorDetails)}`);
         }
 
         const data = await response.json();
@@ -180,7 +181,7 @@
         chatMessages.removeChild(chatMessages.lastChild);
         addMessage("bot", botMessage);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error:", error.message);
         const chatMessages = document.getElementById("chatMessages");
         chatMessages.removeChild(chatMessages.lastChild);
         addMessage("bot", "An error occurred while processing your request.");
